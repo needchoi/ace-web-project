@@ -17,7 +17,7 @@ export const LoginPage = () => {
 
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: Record<string, string>) => {
     setIsLoading(true);
     setError(null);
     try {
@@ -51,8 +51,8 @@ export const LoginPage = () => {
       });
 
       navigate('/');
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
     } finally {
       setIsLoading(false);
     }

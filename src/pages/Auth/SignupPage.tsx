@@ -62,8 +62,8 @@ export const SignupPage = () => {
       if (insertError) throw insertError;
       
       setSuccess(true);
-    } catch (err: any) {
-      setError(err.message || '가입 신청 중 오류가 발생했습니다.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '가입 신청 중 오류가 발생했습니다.');
     } finally {
       setIsLoading(false);
     }

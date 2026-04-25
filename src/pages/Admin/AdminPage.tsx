@@ -15,14 +15,10 @@ interface PendingUser {
 }
 
 export const AdminPage = () => {
-  const { user } = useAuth();
+  useAuth(); // ensure context is loaded
   const [pendingUsers, setPendingUsers] = useState<PendingUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
-
-  useEffect(() => {
-    fetchPendingUsers();
-  }, []);
 
   const fetchPendingUsers = async () => {
     setIsLoading(true);
@@ -41,6 +37,11 @@ export const AdminPage = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    fetchPendingUsers();
+  }, []);
 
   const handleStatusChange = async (userId: string, newStatus: '일반회원' | '거절') => {
     setActionLoading(userId);

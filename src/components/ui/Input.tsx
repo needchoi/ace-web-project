@@ -38,7 +38,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             onClick={(e) => {
               // date 타입인 경우 클릭 시 달력을 강제로 엽니다.
               if (props.type === 'date') {
-                try { (e.currentTarget as any).showPicker(); } catch (err) {}
+                try { 
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  (e.currentTarget as any).showPicker(); 
+                } catch {
+                  // ignore
+                }
               }
               props.onClick?.(e);
             }}
